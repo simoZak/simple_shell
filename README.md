@@ -3,6 +3,7 @@ SIMPLE_SHELL
 Write a UNIX command line interpreter (a shell), that will display a prompt, allow users to enter commands and executes inputed commands.
 
 List of allowed functions and system calls
+
 access (man 2 access)
 chdir (man 2 chdir)
 close (man 2 close)
