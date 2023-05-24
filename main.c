@@ -4,16 +4,19 @@
  * main - Entry point of shell.
  * @ac: argument count.
  * @argv: argument variable.
+ * @env: NULL terminated array of strings.
  *
  * Return: 0 on success.
  */
 
-int main(__attribute__((unused))int ac, __attribute__((unused))char **argv)
+int main(__attribute__((unused))int ac, char **argv, char **env)
 {
 	char *lineptr;
 	size_t n = 0;
 	ssize_t get;
 	char *myArray[2];
+
+	(void)argv;
 
     /* create an infinite loop */
 	while (1)
@@ -29,7 +32,7 @@ int main(__attribute__((unused))int ac, __attribute__((unused))char **argv)
 		no_newLineChar(lineptr);
 		myArray[0] = lineptr;
 		myArray[1] = NULL;
-		execute_command(myArray);
+		execute_command(myArray, env);
 	}
 	free(lineptr);
 

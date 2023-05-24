@@ -7,7 +7,7 @@
 #include<errno.h>
 #include<sys/wait.h>
 
-void execute_command(char **cmd);
+void execute_command(char **cmd, char **env);
 char *no_newLineChar(char *string);
 int _putchar(char c);
 void printprompt(void);
