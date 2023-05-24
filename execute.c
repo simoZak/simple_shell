@@ -10,12 +10,13 @@ void execute_command(char **cmd)
 {
 	pid_t child_pid;
 	int status;
+	extern char** environ;
 
 	child_pid = fork();
 
 	if (child_pid == 0)
 	{
-		execve(cmd[0], cmd, NULL);
+		execve(cmd[0], cmd, environ);
 		perror("Error");
 	}
 	else
