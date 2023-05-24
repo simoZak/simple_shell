@@ -26,7 +26,7 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		if (get == -1)
 		{
 			free(lineptr);
-			return (-1);
+			exit(EXIT_SUCCESS);
 		}
 
 		no_newLineChar(lineptr);
