@@ -17,7 +17,7 @@ void execute_command(char **cmd, char **env)
 	if (child_pid == 0)
 	{
 		execve(cmd[0], cmd, env);
-		perror("Error");
+		perror("./hsh");
 	}
 	else
 	{

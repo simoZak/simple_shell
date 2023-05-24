@@ -25,7 +25,7 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		get = getline(&lineptr, &n, stdin);
 		if (get == -1)
 		{
-			perror("Error");
+			perror("./hsh");
 			return (-1);
 		}
 
