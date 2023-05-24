@@ -11,7 +11,7 @@
 
 int main(__attribute__((unused))int ac, char **argv, char **env)
 {
-	char *lineptr;
+	char *lineptr = NULL;
 	size_t n = 0;
 	ssize_t get;
 	char *myArray[2];
@@ -26,6 +26,7 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		if (get == -1)
 		{
 			perror("./hsh");
+			free(lineptr);
 			return (-1);
 		}
 
