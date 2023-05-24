@@ -19,6 +19,10 @@ char *no_newLineChar(char *string)
 		{
 			string[s] = '\0';
 		}
+		if (string[s] == ' ')
+		{
+			string[s] = '\0';
+		}
 		s++;
 	}
 
