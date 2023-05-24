@@ -23,6 +23,12 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 	{
 		printprompt();
 		get = getline(&lineptr, &n, stdin);
+		if (!lineptr)
+		{
+			free(lineptr);
+			return(-1);
+		}
+
 		if (get == -1)
 		{
 			free(lineptr);

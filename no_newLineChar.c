@@ -9,9 +9,16 @@
 
 char *no_newLineChar(char *string)
 {
-	int s;
+	int s = 0, r = 0;
 
-	s = 0;
+	while (string[r])
+	{
+		if (string[r] == ' ')
+		{
+			string[r] = string[r + 1];
+		}
+		r++;
+	}
 
 	while (string[s])
 	{
