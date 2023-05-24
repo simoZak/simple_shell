@@ -11,5 +11,6 @@ void execute_command(char **cmd, char **env);
 char *no_newLineChar(char *string);
 int _putchar(char c);
 void printprompt(void);
+char *removeSpaces(char *str);
 
 #endif

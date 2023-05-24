@@ -35,6 +35,7 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		}
 
 		no_newLineChar(lineptr);
+		removeSpaces(lineptr);
 
 		if (lineptr == NULL)
 			return (-1);
