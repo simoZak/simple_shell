@@ -18,7 +18,11 @@ void execute_command(char **cmd, char **env)
 	{
 		execve(cmd[0], cmd, env);
 		if (execve(cmd[0], cmd, env) == -1)
+		{
 			perror("./hsh");
+			printprompt();
+		}
+		printprompt();
 	}
 	else
 	{

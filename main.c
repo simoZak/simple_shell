@@ -14,20 +14,19 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 	char *lineptr = NULL;
 	size_t n = 0;
 	ssize_t get;
-	char *myArray[2];
 
-	(void)argv;
+
 
     /* create an infinite loop */
 	while (1)
 	{
-		printprompt();
 		get = getline(&lineptr, &n, stdin);
 		if (!lineptr)
 		{
 			free(lineptr);
-			return(-1);
+			exit(EXIT_SUCCESS);
 		}
+
 
 		if (get == -1)
 		{
@@ -36,9 +35,13 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		}
 
 		no_newLineChar(lineptr);
-		myArray[0] = lineptr;
-		myArray[1] = NULL;
-		execute_command(myArray, env);
+
+		if (lineptr == NULL)
+			return (-1);
+
+		argv[0] = lineptr;
+		argv[1] = NULL;
+		execute_command(argv, env);
 	}
 	free(lineptr);
 
