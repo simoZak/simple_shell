@@ -1,6 +1,11 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#define BUFSIZE 1024
+#define DELIM " \t\r\n\a"
+#define PRINTER(c) (write(STDOUT_FILENO, c, _strlen(c)))
+extern char **environ;
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
