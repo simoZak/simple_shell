@@ -11,12 +11,15 @@ void execute_command(char **cmd, char **env)
 {
 	pid_t child_pid;
 	int status;
+	char *cd = NULL, *acd = NULL;
 
 	child_pid = fork();
 
 	if (child_pid == 0)
 	{
-		execve(cmd[0], cmd, env);
+		cd = cmd[0];
+		acd = get_origin(cd);
+		execve(acd, cmd, env);
 		if (execve(cmd[0], cmd, env) == -1)
 		{
 			perror("./hsh");
