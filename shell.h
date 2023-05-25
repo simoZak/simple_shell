@@ -9,6 +9,9 @@
 #include<string.h>
 #include<sys/stat.h>
 #include<sys/types.h>
+#include <signal.h>
+#include <linux/limits.h>
+#include <fcntl.h>
 
 extern char **environ;
 
@@ -25,5 +28,25 @@ char *get_environ(const char *name);
 char *get_origin(char *cmd);
 int strn_cmp(const char *s1, const char *s2, size_t len);
 char *str_cat(char *dest, char *src);
+
+
+void read_file(char *filename, char **argv);
+void prompt(void);
+void signal_to_handel(int sig);
+char *_getline(void);
+int history(char *input);
+char **parse_cmd(char *cmd);
+void  exit_bul(char **cmd, char *input, char **argv, int c);
+int check_cmd(char **tokens, char *line, int count, char **argv);
+void free_all(char **input, char *line);
+int _strcmp(char *s1, char *s2);
+int check_builtin(char **cmd);
+int handle_builtin(char **cmd, int er);
+
+typedef struct  bulltin
+{
+	char *command;
+	int (*fun)(char **line, int er);
+} bul_t;
 
 #endif
