@@ -8,69 +8,75 @@
  *
  * Return: 0 on success.
  */
+int main(__attribute__((unused)) int argc, char **argv)
+{
+	char *input, **cmd;
+	int iter = 0, etat = 1, var = 0;
 
-int main(int ac, char **argv){
-    char *prompt = "(Eshell) $ ";
-    char *lineptr = NULL, *lineptr_copy = NULL;
-    size_t n = 0;
-    ssize_t nchars_read;
-    const char *delim = " \n";
-    int num_tokens = 0;
-    char *token;
-    int i;
+	if (argv[1] != NULL)
+		read_file(argv[1], argv);
+	signal(SIGINT, signal_to_handel);
+	while (etat)
+	{
+		iter++;
+		if (isatty(STDIN_FILENO))
+			prompt();
+		input = _getline();
+		if (input[0] == '\0')
+		{
+			continue;
+		}
+		history(input);
+		cmd = parse_cmd(input);
+		if (_strcmp(cmd[0], "exit") == 0)
+		{
+			exit_bul(cmd, input, argv, iter);
+		}
+		else if (check_builtin(cmd) == 0)
+		{
+			var = handle_builtin(cmd, var);
+			free_all(cmd, input);
+			continue;
+		}
+		else
+		{
+			var = check_cmd(cmd, input, iter, argv);
 
-    /* declaring void variables */
-    (void)ac;
+		}
+		free_all(cmd, input);
+	}
+	return (etat);
+}
 
-    /* A loop for the shell's prompt */
-    while (1) {
-        printf("%s", prompt);
-        nchars_read = getline(&lineptr, &n, stdin);
-        /* check if the getline function woked or failed */ 
-        if (nchars_read == -1){
-            printf("Exiting shell....\n");
-            return (-1);
-        }
+int check_builtin(char **cmd)
+{
+	bul_t fun[] = {
+		{"cd", NULL},
+		{"help", NULL},
+		{"echo", NULL},
+		{"history", NULL},
+		{NULL, NULL}
+	};
+	int i = 0;
+		if (*cmd == NULL)
+	{
+		return (-1);
+	}
 
-        /* allocate space to copy the lineptr */
-        lineptr_copy = malloc(sizeof(char) * nchars_read);
-        if (lineptr_copy== NULL){
-            perror("tsh: memory allocation error");
-            return (-1);
-        }
-        /* copy lineptr to lineptr_copy */
-        strcpy(lineptr_copy, lineptr);
+	while ((fun + i)->command)
+	{
+		if (_strcmp(cmd[0], (fun + i)->command) == 0)
+			return (0);
+		i++;
+	}
+	return (-1);
+}
 
-        /* total number of tokens */
-        token = strtok(lineptr, delim);
+void creat_envi(char **envi)
+{
+	int i;
 
-        while (token != NULL){
-            num_tokens++;
-            token = strtok(NULL, delim);
-        }
-        num_tokens++;
-
-        /* Allocate space for the array of strings */
-        argv = malloc(sizeof(char *) * num_tokens);
-
-        /* Store each token in the argv */
-        token = strtok(lineptr_copy, delim);
-
-        for (i = 0; token != NULL; i++){
-            argv[i] = malloc(sizeof(char) * strlen(token));
-            strcpy(argv[i], token);
-
-            token = strtok(NULL, delim);
-        }
-        argv[i] = NULL;
-
-
-        printf("%s\n", lineptr);
-
-        /* free the allocated memory */ 
-        free(lineptr);
-    } 
-
-
-    return (0);
+	for (i = 0; environ[i]; i++)
+		envi[i] = _strdup(environ[i]);
+	envi[i] = NULL;
 }
