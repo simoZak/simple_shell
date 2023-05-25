@@ -48,6 +48,7 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 		argv[i] = NULL;
 		execute_command(argv, env);
 	}
+
 	free(lineptr);
 	free(line_cpy);
 	return (0);
