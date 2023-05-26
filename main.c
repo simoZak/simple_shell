@@ -33,19 +33,18 @@ int main(__attribute__((unused))int ac, char **argv, char **env)
 			ntok++;
 			token = strtok(NULL, delim);
 		}
-		free(token);
 		ntok++;
 		argv = malloc(sizeof(char *) * ntok);
 		token = strtok(line_cpy, delim);
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char *) * _strlen(token));
-			str_cpy(argv[i], token);
+			argv[i] = _strdup(token);
 			token = strtok(NULL, delim);
 		}
-		free(token);
 		argv[i] = NULL;
 		execute_command(argv, env);
+		free(line_cpy);
+		_freetok(argv);
 	}
 	free(lineptr);
 	free(line_cpy);

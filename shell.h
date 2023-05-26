@@ -25,5 +25,6 @@ char *get_environ(const char *name);
 char *get_origin(char *cmd);
 int strn_cmp(const char *s1, const char *s2, size_t len);
 char *str_cat(char *dest, char *src);
+void _freetok(char **tokArray);
 
 #endif
